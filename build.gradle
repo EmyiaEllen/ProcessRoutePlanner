@@ -1,0 +1,66 @@
+plugins {
+    id 'java'
+    id 'io.quarkus'
+    id 'io.freefair.lombok' version '5.3.3.3'
+}
+
+repositories {
+//    maven {
+//        url 'https://maven.aliyun.com/repository/public/'
+//    }
+//    maven {
+//        url 'https://maven.aliyun.com/repository/gradle-plugin'
+//    }
+//    maven {
+//        url 'https://repo1.maven.org/maven2/'
+//    }
+    mavenLocal()
+    mavenCentral()
+}
+
+group 'com.example'
+version '1.0-SNAPSHOT'
+
+dependencies {
+//    implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
+//    implementation 'io.quarkus:quarkus-arc'
+//    implementation 'io.quarkus:quarkus-resteasy-reactive'
+//    testImplementation 'io.quarkus:quarkus-junit5'
+//    testImplementation 'io.rest-assured:rest-assured'
+
+    implementation platform("io.quarkus:quarkus-bom:${quarkusPlatformVersion}")
+    implementation "io.quarkus:quarkus-resteasy"
+    implementation "io.quarkus:quarkus-resteasy-jackson"
+    implementation "io.quarkus:quarkus-jdbc-h2"
+    implementation "io.quarkus:quarkus-hibernate-orm-panache"
+    implementation "io.quarkus:quarkus-hibernate-orm-rest-data-panache"
+    testImplementation "io.quarkus:quarkus-junit5"
+
+    implementation platform("org.optaplanner:optaplanner-bom:${optaplannerVersion}")
+    implementation "org.optaplanner:optaplanner-quarkus"
+    implementation "org.optaplanner:optaplanner-quarkus-jackson"
+    testImplementation "org.optaplanner:optaplanner-test"
+
+    implementation group: 'io.quarkus', name: 'quarkus-jdbc-mysql', version: '3.0.0.Final'
+    implementation group: 'com.baomidou', name: 'mybatis-plus-boot-starter', version: '3.5.3.1'
+
+    compileOnly 'org.projectlombok:lombok:1.18.22'
+    annotationProcessor 'org.projectlombok:lombok:1.18.22'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+test {
+    systemProperty "java.util.logging.manager", "org.jboss.logmanager.LogManager"
+}
+compileJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << '-parameters'
+}
+
+compileTestJava {
+    options.encoding = 'UTF-8'
+}
